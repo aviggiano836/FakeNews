@@ -1,4 +1,4 @@
-# newstycoon_app
+# know_good_news
 
 A new Flutter project.
 

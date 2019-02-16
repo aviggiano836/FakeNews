@@ -1,4 +1,4 @@
-package com.example.newstycoonapp
+package com.knowgoodbusiness.knowgoodnews
 
 import android.os.Bundle
 
