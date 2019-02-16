@@ -6,6 +6,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    const _PrimaryValue = 0xFF003B37;
+
+    const MaterialColor swatch = const MaterialColor(
+      _PrimaryValue,
+      const <int, Color>{
+        50:  const Color(0xFF226C67),
+        100: const Color(0xFF226C67),
+        200: const Color(0xFF0D534E),
+        300: const Color(0xFF0D534E),
+        400: const Color(_PrimaryValue),
+        500: const Color(_PrimaryValue),
+        600: const Color(0xFF002522),
+        700: const Color(0xFF002522),
+        800: const Color(0xFF001210),
+        900: const Color(0xFF001210),
+      },
+    );
+
     return MaterialApp(
       title: 'Know Good News',
       theme: ThemeData(
@@ -18,7 +36,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.green,
+        primarySwatch: swatch,
       ),
       home: MyHomePage(title: 'Know Good News Home'),
     );

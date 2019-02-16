@@ -45,7 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
     final ButtonTheme buttonTheme = new ButtonTheme(
       minWidth: MediaQuery.of(context).size.width,
       height: 100.0,
-      buttonColor: Colors.lightGreen,
+      textTheme: ButtonTextTheme.primary,
+      buttonColor: Color(0xFFE98A15),
     );
 
     // This method is rerun every time setState is called
@@ -72,14 +73,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       Container(
                         margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                         child: RaisedButton(
-                          child: new Text("Continue"),
+                          child: new Text("Continue", textScaleFactor: 2.0,),
                           onPressed: _goToArticles,
                         ),
                       ),
                       Container(
                           margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                           child: RaisedButton(
-                            child: new Text("New Game"),
+                            child: new Text("New Game", textScaleFactor: 2.0,),
                             onPressed: _startNewGame,
                           ),
                       ),
