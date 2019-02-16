@@ -24,20 +24,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void _goToArticles() {
+  void _goToArticles(BuildContext context) {
     //check that user has existing game
-    setState(() {
-
-      //go to articles page
-    });
+    bool hasExisting = false; //does user have game to continue
+    if (hasExisting){
+      //send user to article page
+    } else {
+      //toast notification
+      Scaffold.of(context).showSnackBar(
+          new SnackBar(
+            content: Text("No existing data, start a new game to play"),
+            duration: Duration(seconds: 3)
+          )
+      );
+    }
   }
 
   void _startNewGame(){
-    //start a new game
-      /*Navigator.push(
-        ,
-        new MaterialPageRoute(builder: (ctxt) => new SecondScreen()),
-      );*/
       Navigator.push(context, new MaterialPageRoute(builder: (context) => new NewGamePage(title: "New Game",)));
   }
 
@@ -66,11 +69,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   data: buttonTheme.data,
                   child: Column(
                     children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                        child: RaisedButton(
-                          child: new Text("Continue", textScaleFactor: 2.0,),
-                          onPressed: _goToArticles,
+                      Builder(
+                        builder: (context) => Center(
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                            child: RaisedButton(
+                              child: new Text("Continue", textScaleFactor: 2.0,),
+                              onPressed: () => _goToArticles(context),
+                            ),
+                          )
                         ),
                       ),
                       Container(
