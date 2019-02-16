@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:know_good_news/styles/color_styles.dart';
+
 class NewGamePage extends StatefulWidget{
   NewGamePage({Key key, this.title}) : super(key: key);
 
@@ -20,7 +22,7 @@ class _NewGamePageState extends State<NewGamePage>{
   @override
   Widget build(BuildContext context) {
     final ButtonTheme buttonTheme = new ButtonTheme(
-      buttonColor: Colors.lightGreen,
+      buttonColor: ColorDefinitions.secondaryColor,
     );
 
     return Scaffold(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:know_good_news/screens/new_game_screen.dart';
+import 'package:know_good_news/styles/color_styles.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
       minWidth: MediaQuery.of(context).size.width,
       height: 100.0,
       textTheme: ButtonTextTheme.primary,
-      buttonColor: Color(0xFFE98A15),
+      buttonColor: ColorDefinitions.secondaryColor,
     );
 
     // This method is rerun every time setState is called
