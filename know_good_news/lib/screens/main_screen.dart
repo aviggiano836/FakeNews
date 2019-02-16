@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:know_good_news/screens/new_game_screen.dart';
-import 'package:know_good_news/styles/color_styles.dart';
+import 'package:know_good_news/styles/button_themes.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -43,12 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonTheme buttonTheme = new ButtonTheme(
-      minWidth: MediaQuery.of(context).size.width,
-      height: 100.0,
-      textTheme: ButtonTextTheme.primary,
-      buttonColor: ColorDefinitions.secondaryColor,
-    );
+    final ButtonTheme buttonTheme = ButtonStyles.getFullWidthButtonTheme(context);
 
     // This method is rerun every time setState is called
     return Scaffold(
