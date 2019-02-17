@@ -56,6 +56,10 @@ class Player {
     }
   }
 
+  int getCred(){
+    return company.cred;
+  }
+
   Category getType() {
     return company.paperType;
   }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:know_good_news/Models/Player.dart';
 import 'package:know_good_news/Models/Story.dart';
+import 'package:know_good_news/styles/button_themes.dart';
 import 'package:know_good_news/styles/color_styles.dart';
 import 'package:know_good_news/styles/text_styles.dart';
 import 'package:swipedetector/swipedetector.dart';
@@ -65,7 +66,7 @@ class _ArticlePageState extends State<ArticlePage>{
 
   @override
   Widget build(BuildContext context) {
-    _headerHeight = MediaQuery.of(context).size.height * .7;
+    _headerHeight = MediaQuery.of(context).size.height * .6;
     _iconBarHeight = MediaQuery.of(context).size.height * .1;
     _budget = widget.player.getMoney().toString();
 
@@ -74,11 +75,10 @@ class _ArticlePageState extends State<ArticlePage>{
         appBar: AppBar(
           title: Text(widget.player.getName()),
           actions: <Widget>[
-            Row(
-              children: <Widget>[
-                ArticleModelStyle.cost,
-                Text(_budget),
-              ],
+            FlatButton(
+              child: Text("Publish"),
+              textColor: Colors.white,
+              onPressed: () => {}, //TODO
             )
           ],
         ),
@@ -86,6 +86,20 @@ class _ArticlePageState extends State<ArticlePage>{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Container(
+                transform: Matrix4.translationValues(0.0, -15.0, 0.0),
+                color: ColorDefinitions.primaryAccentColor,
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.only(top:0),
+                child: getIconBar(
+                    ams.getIconFromCat(
+                      widget.player.getType()
+                    ),
+                    widget.player.getCred().toString(),
+                    widget.player.getMoney().toString()
+                ),
+              ),
+
               createSwipeDetector( _card ), //SwipeDetector
             ],
           ),

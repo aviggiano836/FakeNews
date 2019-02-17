@@ -25,4 +25,12 @@ class TextStyles{
     fontFamily: font,
     fontSize: subtitleSize,
   );
+
+  static TextStyle secondaryStyle = const TextStyle(
+    color: ColorDefinitions.secondaryColor
+  );
+
+  static TextStyle tertiaryStyle = const TextStyle(
+      color: ColorDefinitions.tertiaryColor
+  );
 }
