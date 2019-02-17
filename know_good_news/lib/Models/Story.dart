@@ -36,7 +36,7 @@ class Story {
 
     this.subject = this.author.pickCat();
 
-    this.cred = this.author.getCredibility() - (rnd.nextInt(20) - 10);
+    this.cred = (this.author.getCredibility() + (rnd.nextInt(20) - 10);
 
     if (this.cred > 100) {
       this.cred = 100;

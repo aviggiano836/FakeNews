@@ -17,6 +17,8 @@ class Author
   {
     name = "Anon Nymous";
 
+    cred = rnd.nextInt(100);
+
     this.cat1 = Category.values[rnd.nextInt(5)];
     this.cat2 = Category.values[rnd.nextInt(5)];
     this.cat3 = Category.values[rnd.nextInt(5)];
@@ -43,7 +45,7 @@ class Author
   }
 
   int getPrice() {
-    return minPrice + (rnd.nextInt(maxPrice - minPrice) + 1);
+    return minPrice + (rnd.nextInt(maxPrice - minPrice));
   }
 
   int getCatScore(Category cat) {
