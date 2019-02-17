@@ -133,7 +133,7 @@ class _ArticlePageState extends State<ArticlePage>{
       setState(() {
         _budget = widget.player.getMoney().toString();
         _card = _createCard(widget.player.printStory());
-        if( numArticles ==  10) {
+        if( numArticles ==  0) {
           //published, send feedback
           Scaffold.of(context).showSnackBar(
               new SnackBar(

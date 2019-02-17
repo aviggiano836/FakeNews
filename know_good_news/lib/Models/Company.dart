@@ -113,7 +113,7 @@ class Company {
     turn += 1;
 
     //givenStories.removeRange(0, givenStories.length - 1);
-    issue.removeRange(0, issue.length - 1);
+    issue.clear();
 
     List<Story> tempStories = new List<Story>();
     authors.forEach((author) => tempStories.add(new Story(author, this.paperType)));
@@ -125,7 +125,7 @@ class Company {
     if (direction) {
       issue.add(story);
 
-      if (issue.length == 10) {
+      if (issue.length == 8) {
         submitStory();
       }
 
