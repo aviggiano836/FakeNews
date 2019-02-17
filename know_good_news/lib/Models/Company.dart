@@ -40,13 +40,13 @@ class Company {
     this.turn  = 0;
     this.cred = 50;
 
-    for (int i; i < 5; i ++) {
+    for (int i = 0; i < 5; i ++) {
       this.authors.add(new Author.automatic());
     }
 
     this.authors.forEach((author) => author.hire());
 
-    for (int i; i < 30; i ++) {
+    for (int i = 0; i < 30; i ++) {
       this.readers.add(new Reader());
     }
 
