@@ -16,8 +16,8 @@ class Company {
   List<int> popularity;
 
   List<Story> issue;
-  List<Story> givenStories;
 
+  int cred;
   int turn;
   Player player;
 
@@ -34,6 +34,7 @@ class Company {
     this.paperType = Category.values[rnd.nextInt(5)];
 
     this.turn  = 0;
+    this.cred = 50;
 
     for (int i; i < 5; i ++) {
       this.authors.add(new Author.automatic());
@@ -45,7 +46,8 @@ class Company {
       this.readers.add(new Reader());
     }
 
-    authors.forEach((author) => givenStories.add(new Story(author, this.paperType)));
+    List<Story> tempStories;
+    authors.forEach((author) => tempStories.add(new Story(author, this.paperType)));
   }
 
   bool reactToStory(Reader reader, List<Story> stories) {
@@ -73,24 +75,48 @@ class Company {
       }
     }
 
-    //readers.forEach((reader) => reactToStory(reader, issue));
+    //change credibility
+    int tempCred;
+    issue.forEach((story) => tempCred += story.cred);
+    tempCred ~/= issue.length;
 
+    cred = (cred + tempCred)~/2;
+
+    //change readers
     toRemove.forEach((removal) => readers.remove(removal));
     readers += toAdd;
 
     //add profits depending on readership
+    player.addCash((readers.length * .05 * cred).toInt());
+
     //set turn value of lists to profits and popularity
     profits.add(5); //adds a temp standin for profits -- get current budget from player for profit.
     popularity.add(readers.length);
 
     turn += 1;
 
-    givenStories.removeRange(0, givenStories.length - 1);
+    //givenStories.removeRange(0, givenStories.length - 1);
     issue.removeRange(0, issue.length - 1);
 
-    authors.forEach((author) => givenStories.add(new Story(author, this.paperType)));
+    List<Story> tempStories;
+    authors.forEach((author) => tempStories.add(new Story(author, this.paperType)));
+    player.newStories(tempStories);
+    //authors.forEach((author) => givenStories.add(new Story(author, this.paperType)));
   }
 
+  void swipe(bool direction, Story story) {
+    if (direction) {
+      issue.add(story);
+
+      if (issue.length > 10) {
+        submitStory();
+      }
+    } else {
+      //do nothing. I guess???
+    }
+  }
+
+  /*
   void swipeGiven(bool direction, int index) {
     if (direction) {
       issue.add(givenStories[index]);
@@ -114,4 +140,5 @@ class Company {
       //do nothing. I guess???
     }
   }
+  */
 }
