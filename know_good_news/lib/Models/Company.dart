@@ -41,14 +41,16 @@ class Company {
     this.cred = 50;
 
     this.authors = new List<Author>();
-    for (int i; i < 5; i ++) {
+
+    for (int i = 0; i < 5; i ++) {
       this.authors.add(new Author.automatic());
     }
 
     this.authors.forEach((author) => author.hire());
 
     this.readers = new List<Reader>();
-    for (int i; i < 30; i ++) {
+
+    for (int i = 0; i < 30; i ++) {
       this.readers.add(new Reader());
     }
 
