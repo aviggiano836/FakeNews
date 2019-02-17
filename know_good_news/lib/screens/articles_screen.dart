@@ -156,7 +156,7 @@ class _ArticlePageState extends State<ArticlePage> with TickerProviderStateMixin
 
     Scaffold.of(context).showSnackBar(
         new SnackBar(
-            content: Text("You couldn't afford that"),
+            content: Text(msg),
             duration: Duration(seconds: 3)
         )
     );
