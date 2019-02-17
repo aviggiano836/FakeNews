@@ -61,7 +61,7 @@ class Company {
   }
 
   bool reactToStory(Reader reader, List<Story> stories) {
-    int response;
+    int response = 0;
     stories.forEach((story) => response +=(reader.react(story)));
 
     if (response >= 5){
@@ -97,10 +97,17 @@ class Company {
     readers += toAdd;
 
     //add profits depending on readership
-    player.addCash((readers.length * .05 * cred).toInt());
+    player.addCash((readers.length * .1 * cred).toInt());
 
     //set turn value of lists to profits and popularity
-    profits.add(5); //adds a temp standin for profits -- get current budget from player for profit.
+    if(profits == null){
+      profits = new List<int>();
+    }
+    profits.add(player.budget); //adds a temp standin for profits -- get current budget from player for profit.
+
+    if(popularity == null){
+      popularity = new List<int>();
+    }
     popularity.add(readers.length);
 
     turn += 1;
@@ -118,7 +125,7 @@ class Company {
     if (direction) {
       issue.add(story);
 
-      if (issue.length > 10) {
+      if (issue.length == 10) {
         submitStory();
       }
 

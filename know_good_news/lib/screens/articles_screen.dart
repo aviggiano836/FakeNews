@@ -88,7 +88,7 @@ class _ArticlePageState extends State<ArticlePage>{
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                transform: Matrix4.translationValues(0.0, -15.0, 0.0),
+                transform: Matrix4.translationValues(0.0, -5.0, 0.0),
                 color: ColorDefinitions.primaryAccentColor,
                 padding: EdgeInsets.all(10),
                 margin: EdgeInsets.only(top:0),
@@ -141,8 +141,7 @@ class _ArticlePageState extends State<ArticlePage>{
                   duration: Duration(seconds: 3)
               )
           );
-        }
-        /* else if (numArticles == 5){ //TODO, min reached, enable publish btn
+        }/* else if (numArticles == 5){ //TODO, min reached, enable publish btn
           setState(() {
             _canPublish = true;
           });
