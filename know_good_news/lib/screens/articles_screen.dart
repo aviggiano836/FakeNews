@@ -25,6 +25,7 @@ Offset offset = Offset.zero;
 class _ArticlePageState extends State<ArticlePage>{
   Card _card;
   Story _story;
+  String _budget;
   ArticleModelStyle ams = new ArticleModelStyle();
   double _headerHeight;
   double _iconBarHeight;
@@ -66,11 +67,20 @@ class _ArticlePageState extends State<ArticlePage>{
   Widget build(BuildContext context) {
     _headerHeight = MediaQuery.of(context).size.height * .7;
     _iconBarHeight = MediaQuery.of(context).size.height * .1;
+    _budget = widget.player.getMoney().toString();
 
     _card = _createCard(widget.player.printStory());
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.player.getName()),
+          actions: <Widget>[
+            Row(
+              children: <Widget>[
+                ArticleModelStyle.cost,
+                Text(_budget),
+              ],
+            )
+          ],
         ),
         body: Center(
           child: Column(
@@ -98,6 +108,7 @@ class _ArticlePageState extends State<ArticlePage>{
     //update story
     if (widget.player.swipe(true, _story) != -1) {
       setState(() {
+        _budget = widget.player.getMoney().toString();
         _card = _createCard(widget.player.printStory());
       });
 
