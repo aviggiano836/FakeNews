@@ -1,4 +1,7 @@
-import 'dart:html';
+import 'package:html/dom.dart';
+import 'package:html/dom_parsing.dart';
+import 'package:html/parser.dart';
+import 'package:html/parser_console.dart';
 import 'dart:convert' as JSON;
 import 'dart:math';
 import 'Category.dart';
