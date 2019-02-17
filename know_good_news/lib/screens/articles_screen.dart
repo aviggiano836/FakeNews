@@ -117,13 +117,17 @@ class _ArticlePageState extends State<ArticlePage>{
   void _accept(){
     print("accept article");
     //update story
-    _card = _createCard(widget.player.printStory());
+    setState(() {
+      _card = _createCard(widget.player.printStory());
+    });
   }
 
   void _reject(){
     print("reject article");
     //update story
-    _card = _createCard(widget.player.printStory());
+    setState(() {
+      _card = _createCard(widget.player.printStory());
+    });
   }
 
   Column getIconBarColumn(Icon icon, String text){
