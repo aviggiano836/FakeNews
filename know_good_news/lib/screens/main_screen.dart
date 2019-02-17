@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:know_good_news/screens/articles_screen.dart';
 
 import 'package:know_good_news/screens/new_game_screen.dart';
 import 'package:know_good_news/styles/button_themes.dart';
@@ -29,8 +30,12 @@ class _MyHomePageState extends State<MyHomePage> {
     bool hasExisting = false; //does user have game to continue
     if (hasExisting){
       //send user to article page
-    } else {
-      //toast notification
+      Navigator.push(context, new MaterialPageRoute(
+          builder: (context) =>
+            new ArticlePage(title: "Articles", firstVisit: false,)
+      ));
+
+    } else { //send them toast notification
       Scaffold.of(context).showSnackBar(
           new SnackBar(
             content: Text("No existing data, start a new game to play"),
@@ -40,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _startNewGame(){
+  void _startNewGame(){ //send user to create page
       Navigator.push(context, new MaterialPageRoute(builder: (context) => new NewGamePage(title: "New Game",)));
   }
 
