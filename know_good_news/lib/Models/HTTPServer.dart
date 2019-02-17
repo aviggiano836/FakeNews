@@ -13,11 +13,11 @@ class HTTPServer {
     Random rnd = new Random();
 
     print('https://newsapi.org/v2/top-headlines?q=' + cat.toString() + '&apiKey=504440fedb62484ab6632c8748373296');
-    Map obj = JSON.jsonDecode(await HttpRequest.getString('https://newsapi.org/v2/top-headlines?q=' + cat.toString() + '&apiKey=504440fedb62484ab6632c8748373296'));
+    //Map obj = JSON.jsonDecode(await HttpRequest.getString('https://newsapi.org/v2/top-headlines?q=' + cat.toString() + '&apiKey=504440fedb62484ab6632c8748373296'));
 
-    int index = (rnd.nextInt(obj['totalResults']));
+    //int index = (rnd.nextInt(obj['totalResults']));
     //print (index);
-    return await (obj['articles'][index]['title'].toString());
+    //return await (obj['articles'][index]['title'].toString());
     //print(obj);
   }
 }
