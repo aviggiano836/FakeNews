@@ -56,6 +56,7 @@ class Company {
 
     List<Story> tempStories = new List<Story>();
     authors.forEach((author) => tempStories.add(new Story(author, this.paperType)));
+    player.newStories(tempStories);
   }
 
   bool reactToStory(Reader reader, List<Story> stories) {
