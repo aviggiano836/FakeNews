@@ -100,8 +100,15 @@ class _ArticlePageState extends State<ArticlePage>{
                     _budget.toString()
                 ),
               ),
-
-              createSwipeDetector(context, _card ), //SwipeDetector
+              Builder(
+                builder: (context) => Center(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                      child: createSwipeDetector(context, _card ), //SwipeDetector
+                    )
+                ),
+              ),
+              //createSwipeDetector(context, _card ), //SwipeDetector
             ],
           ),
         ),
@@ -134,23 +141,22 @@ class _ArticlePageState extends State<ArticlePage>{
                   duration: Duration(seconds: 3)
               )
           );
-        }/* else if (numArticles == 5){ //TODO, min reached, enable publish btn
+        }
+        /* else if (numArticles == 5){ //TODO, min reached, enable publish btn
           setState(() {
             _canPublish = true;
           });
-        }*/ else {
-          //something went wrong/can't afford
-          Scaffold.of(context).showSnackBar(
-              new SnackBar(
-                  content: Text("You couldn't afford that"),
-                  duration: Duration(seconds: 3)
-              )
-          );
-        }
+        }*/
       });
 
     } else {
-
+      //something went wrong/can't afford
+      Scaffold.of(context).showSnackBar(
+          new SnackBar(
+              content: Text("You couldn't afford that"),
+              duration: Duration(seconds: 3)
+          )
+      );
     }
   }
 
