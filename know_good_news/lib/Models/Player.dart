@@ -41,6 +41,10 @@ class Player {
     return this.name;
   }
 
+  int getMoney() {
+    return this.budget;
+  }
+
   Story printStory() {
     if (stories.length == 0) {
       return new Story.automatic();
