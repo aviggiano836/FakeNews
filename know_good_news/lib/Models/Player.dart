@@ -11,8 +11,9 @@ class Player {
   int budget;
   List<Story> stories;
 
-  Player() {
+  Player(this.name) {
     company = new Company(this);
+    budget = 50;
   }
 
   void swipe(bool direction, Story story) {
