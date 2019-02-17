@@ -1,6 +1,7 @@
 import 'Author.dart';
 import 'Category.dart';
 import 'dart:math';
+import 'HTTPServer.dart';
 
 class Story {
   String headline;
@@ -8,7 +9,8 @@ class Story {
   int cost;
   Category subject;
   Author author;
-
+  
+  HTTPServer serv = new HTTPServer();
   Random rnd = new Random();
 
   Story(this.author, Category companyType) {
@@ -28,7 +30,7 @@ class Story {
 
     this.cost = author.getPrice();
 
-    this.headline = "An Author Story";
+    this.headline = serv.run(this.subject).toString();
   }
 
   Story.automatic () {
@@ -46,7 +48,7 @@ class Story {
 
     this.cost = author.getPrice();
 
-    this.headline = "An Automatic Story";
+    this.headline = serv.run(this.subject).toString();
   }
 
   String getHeadline() {
