@@ -16,7 +16,11 @@ class Author
   Author.automatic ()
   {
     name = "Anon Nymous";
-    cred = rnd.nextInt(100);
+
+    this.cat1 = Category.values[rnd.nextInt(5)];
+    this.cat2 = Category.values[rnd.nextInt(5)];
+    this.cat3 = Category.values[rnd.nextInt(5)];
+
     minPrice = rnd.nextInt(30) + 1;
     maxPrice = minPrice + rnd.nextInt(70) + 1;
   }
@@ -39,7 +43,7 @@ class Author
   }
 
   int getPrice() {
-    return minPrice + rnd.nextInt(maxPrice - minPrice);
+    return minPrice + (rnd.nextInt(maxPrice - minPrice) + 1);
   }
 
   int getCatScore(Category cat) {
