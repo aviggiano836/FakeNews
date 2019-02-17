@@ -26,6 +26,7 @@ class Company {
   Company(this.player) {
     this.scores = {Category.food: 0, Category.tech: 0, Category.health: 0, Category.politics: 0, Category.sports: 0, Category.science: 0};
 
+    this.issue = new List<Story>();
     /*
     this.scores.putIfAbsent(Category.food, () => 0);
     this.scores.putIfAbsent(Category.tech, () => 0);
@@ -113,16 +114,18 @@ class Company {
     //authors.forEach((author) => givenStories.add(new Story(author, this.paperType)));
   }
 
-  void swipe(bool direction, Story story) {
+  int swipe(bool direction, Story story) {
     if (direction) {
       issue.add(story);
 
       if (issue.length > 10) {
         submitStory();
       }
-    } else {
-      //do nothing. I guess???
+
+      return this.issue.length;
     }
+
+    return -1;
   }
 
   /*
