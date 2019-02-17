@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:know_good_news/styles/color_styles.dart';
 
@@ -37,7 +39,36 @@ class _ArticlePageState extends State<ArticlePage>{
                         fontWeight: FontWeight.bold
                       ),
                       textAlign: TextAlign.center,
-
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Icon(IconData(0xe548, fontFamily: 'MaterialIcons')),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Row(
+                              children: <Widget>[
+                                Icon(IconData(0xe7ef, fontFamily: 'MaterialIcons')),
+                                Text("82%"),
+                              ],
+                            ),
+                          ]
+                        ),
+                        Column(
+                          children: [
+                            Row(
+                              children: <Widget>[
+                                Icon(IconData(0xe227, fontFamily: 'MaterialIcons')),
+                                Text("5")
+                              ],
+                            ),
+                          ]
+                        ),
+                      ],
                     ),
                   ],
                 ),
