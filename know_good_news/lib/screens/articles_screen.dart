@@ -19,22 +19,23 @@ class ArticlePage extends StatefulWidget {
 
 Offset offset = Offset.zero;
 
-class _ArticlePageState extends State<ArticlePage> with SingleTickerProviderStateMixin{
+class _ArticlePageState extends State<ArticlePage> with TickerProviderStateMixin{
   //variables
   Card _card;
   String _budget;
   bool _canPublish = false;
   ArticleModelStyle ams = new ArticleModelStyle();
   double _headerHeight;
-  double _iconBarHeight;
+  double _barHeight;
 
   @override
   Widget build(BuildContext context) {
     _headerHeight = MediaQuery.of(context).size.height * .6;
-    _iconBarHeight = MediaQuery.of(context).size.height * .1;
+    _barHeight = MediaQuery.of(context).size.height * .1;
     _budget = widget.player.getMoney().toString();
 
     Story _story = widget.player.printStory();
+    Card _card = _createCard(_story);
 
     return Scaffold(
       appBar: AppBar(
@@ -74,7 +75,7 @@ class _ArticlePageState extends State<ArticlePage> with SingleTickerProviderStat
                     child: Container(
                       margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                       child: _createSwipeDetector(
-                        context, _createCard(_story, _headerHeight, _iconBarHeight), _story), //SwipeDetector
+                        context, _card, _story), //SwipeDetector
                       //child: positioned, //SwipeDetector
                     )
                 ),
@@ -87,7 +88,7 @@ class _ArticlePageState extends State<ArticlePage> with SingleTickerProviderStat
 
   }
 
-  Card _createCard(Story story, double headerHeight, double barHeight) {
+  Card _createCard(Story story) {
     return Card(
       //color: ColorDefinitions.tertiaryColor,
       margin: EdgeInsets.all(25.0),
@@ -96,8 +97,8 @@ class _ArticlePageState extends State<ArticlePage> with SingleTickerProviderStat
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            height: headerHeight,
-            alignment: Alignment(headerHeight / 2, 0),
+            height: _headerHeight,
+            alignment: Alignment(_headerHeight / 2, 0),
             padding: EdgeInsets.all(20),
             child: new Text(story.getHeadline(),
                 style: TextStyles.titleStyle,
@@ -106,8 +107,8 @@ class _ArticlePageState extends State<ArticlePage> with SingleTickerProviderStat
             ),
           ),
           Container(
-            height: barHeight,
-            alignment: Alignment((barHeight / 2 + headerHeight), 0),
+            height: _barHeight,
+            alignment: Alignment((_barHeight / 2 + _headerHeight), 0),
             child: getIconBar(
                 ams.getIconFromCat(story.getCat()),
                 story.getCred().toString(),
@@ -119,8 +120,6 @@ class _ArticlePageState extends State<ArticlePage> with SingleTickerProviderStat
     );
   }
 
-
-
   SwipeDetector _createSwipeDetector(BuildContext context, Widget child, Story story){
     return new SwipeDetector(
         child: child,
@@ -131,44 +130,47 @@ class _ArticlePageState extends State<ArticlePage> with SingleTickerProviderStat
 
   void _accept(BuildContext context, Story story){
     print("accept article");
-    //update story
+    String msg = "";
     int numArticles = widget.player.swipe(true, story);
-    if (numArticles != -1) {
-      setState(() {
+    if (numArticles != -1) { //Added correctly?
+      setState(() { //update with new budget and get next article
         _budget = widget.player.getMoney().toString();
-        //_card = _createCard(widget.player.printStory());
-        if( numArticles ==  0) {
-          //published, send feedback
-          Scaffold.of(context).showSnackBar(
-              new SnackBar(
-                  content: Text("Paper Published! Congrats"),
-                  duration: Duration(seconds: 3)
-              )
-          );
-        } else if (numArticles == 5){
-          setState(() {
-            _canPublish = true;
-          });
-        }
+        _card = _createCard(widget.player.printStory());
       });
+      if( numArticles ==  0) { // paper has been cleared = published
+        msg = "Paper Published! Congrats";
 
-    } else {
-      //something went wrong/can't afford
-      Scaffold.of(context).showSnackBar(
-          new SnackBar(
-              content: Text("You couldn't afford that"),
-              duration: Duration(seconds: 3)
-          )
-      );
+      } else if (numArticles == 5){ // min num reached, enable publish button
+        setState(() {
+          _canPublish = true;
+        });
+        msg = "You can now publish";
+
+      } else {
+          msg = "Article Added ("+numArticles.toString()+")";
+      }
+
+    } else {  //something went wrong/can't afford
+      msg = "You couldn't afford that";
     }
+
+    Scaffold.of(context).showSnackBar(
+        new SnackBar(
+            content: Text("You couldn't afford that"),
+            duration: Duration(seconds: 3)
+        )
+    );
   }
 
+  /*
+   * Update player's company and notify user
+   */
   void _reject(Story story){
     print("reject article");
-    //update story
     widget.player.swipe(false, story);
+
     setState(() {
-      //_card = _createCard(widget.player.printStory());
+      _card = _createCard(widget.player.printStory());
     });
   }
 
@@ -201,6 +203,6 @@ class _ArticlePageState extends State<ArticlePage> with SingleTickerProviderStat
   }
 
   void _openInfo(){
-    //send player to info page
+    //TODO send player to info page
   }
 }
