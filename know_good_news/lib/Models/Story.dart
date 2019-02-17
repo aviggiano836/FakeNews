@@ -28,7 +28,7 @@ class Story {
 
     this.cost = author.getPrice();
 
-    this.headline = "A Story";
+    this.headline = "An Author Story";
   }
 
   Story.automatic () {
@@ -36,7 +36,7 @@ class Story {
 
     this.subject = this.author.pickCat();
 
-    this.cred = (this.author.getCredibility() + (rnd.nextInt(20) - 10);
+    this.cred = (this.author.getCredibility() + (rnd.nextInt(20) - 10));
 
     if (this.cred > 100) {
       this.cred = 100;
@@ -46,7 +46,7 @@ class Story {
 
     this.cost = author.getPrice();
 
-    this.headline = "A Story";
+    this.headline = "An Automatic Story";
   }
 
   String getHeadline() {

@@ -28,6 +28,12 @@ class _ArticlePageState extends State<ArticlePage>{
 
   Card _createCard(Story story){
 
+    if (ams.getIconFromCat(story.getCat()) == null){
+      print("Icon null");
+    }
+    print("Cred: " + story.getCred().toString());
+    print("Cost: " + story.getCost().toString());
+
     return Card(
       color: ColorDefinitions.backgroundColor,
       margin: EdgeInsets.all(25.0),
@@ -111,11 +117,13 @@ class _ArticlePageState extends State<ArticlePage>{
   void _accept(){
     print("accept article");
     //update story
+    _card = _createCard(widget.player.printStory());
   }
 
   void _reject(){
     print("reject article");
     //update story
+    _card = _createCard(widget.player.printStory());
   }
 
   Column getIconBarColumn(Icon icon, String text){
