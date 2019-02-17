@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:know_good_news/Models/Player.dart';
 import 'package:know_good_news/screens/articles_screen.dart';
 
 import 'package:know_good_news/screens/new_game_screen.dart';
@@ -32,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
       //send user to article page
       Navigator.push(context, new MaterialPageRoute(
           builder: (context) =>
-            new ArticlePage(title: "Articles", firstVisit: false,)
+            new ArticlePage(player: new Player("new"), firstVisit: false,)
       ));
 
     } else { //send them toast notification

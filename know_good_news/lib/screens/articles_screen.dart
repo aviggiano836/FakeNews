@@ -1,13 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:know_good_news/Models/Player.dart';
 import 'package:know_good_news/styles/color_styles.dart';
 import 'package:swipedetector/swipedetector.dart';
 
 class ArticlePage extends StatefulWidget {
-  ArticlePage({Key key, this.title, this.firstVisit}) : super(key: key);
+  ArticlePage({Key key, this.player, this.firstVisit}) : super(key: key);
 
-  final String title;
+  final Player player;
   final bool firstVisit;
 
   @override
@@ -59,7 +60,7 @@ class _ArticlePageState extends State<ArticlePage>{
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text("replace with player.get"),
         ),
         body: Center(
           child: Column(

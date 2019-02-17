@@ -22,10 +22,10 @@ class _NewGamePageState extends State<NewGamePage>{
 
   void _beginGame(TextEditingController tec){
       //begin game for the first time,
-      new Player();
+      Player player = new Player(tec.text);
       Navigator.push(context, MaterialPageRoute(
           builder: (context) =>
-          new ArticlePage(title: tec.text, firstVisit: true,)
+          new ArticlePage(player: player, firstVisit: true,)
       ));
   }
 
