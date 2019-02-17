@@ -24,11 +24,13 @@ Offset offset = Offset.zero;
 
 class _ArticlePageState extends State<ArticlePage>{
   Card _card;
+  Story _story;
   ArticleModelStyle ams = new ArticleModelStyle();
   double _headerHeight;
   double _iconBarHeight;
 
   Card _createCard(Story story){
+    _story = story;
     return Card(
       //color: ColorDefinitions.tertiaryColor,
       margin: EdgeInsets.all(25.0),
@@ -94,14 +96,20 @@ class _ArticlePageState extends State<ArticlePage>{
   void _accept(){
     print("accept article");
     //update story
-    setState(() {
-      _card = _createCard(widget.player.printStory());
-    });
+    if (widget.player.swipe(true, _story) != -1) {
+      setState(() {
+        _card = _createCard(widget.player.printStory());
+      });
+
+    } else {
+
+    }
   }
 
   void _reject(){
     print("reject article");
     //update story
+    widget.player.swipe(false, _story);
     setState(() {
       _card = _createCard(widget.player.printStory());
     });
