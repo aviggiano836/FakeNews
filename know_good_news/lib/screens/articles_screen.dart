@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:know_good_news/Models/Player.dart';
 import 'package:know_good_news/Models/Story.dart';
-import 'package:know_good_news/styles/button_themes.dart';
 import 'package:know_good_news/styles/color_styles.dart';
 import 'package:know_good_news/styles/text_styles.dart';
 import 'package:swipedetector/swipedetector.dart';
@@ -22,48 +19,14 @@ class ArticlePage extends StatefulWidget {
 
 Offset offset = Offset.zero;
 
-
-class _ArticlePageState extends State<ArticlePage>{
+class _ArticlePageState extends State<ArticlePage> with SingleTickerProviderStateMixin{
+  //variables
   Card _card;
-  Story _story;
   String _budget;
   bool _canPublish = false;
   ArticleModelStyle ams = new ArticleModelStyle();
   double _headerHeight;
   double _iconBarHeight;
-
-  Card _createCard(Story story){
-    _story = story;
-    return Card(
-      //color: ColorDefinitions.tertiaryColor,
-      margin: EdgeInsets.all(25.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            height: _headerHeight,
-            alignment: Alignment(_headerHeight/2, 0),
-            padding: EdgeInsets.all(20),
-            child: new Text(story.getHeadline(),
-              style: TextStyles.titleStyle,
-              textAlign: TextAlign.center
-
-            ),
-          ),
-          Container(
-            height: _iconBarHeight,
-            alignment: Alignment((_iconBarHeight/2 + _headerHeight), 0),
-            child: getIconBar(
-                ams.getIconFromCat(story.getCat()),
-                story.getCred().toString(),
-                story.getCost().toString()
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,17 +34,23 @@ class _ArticlePageState extends State<ArticlePage>{
     _iconBarHeight = MediaQuery.of(context).size.height * .1;
     _budget = widget.player.getMoney().toString();
 
-    _card = _createCard(widget.player.printStory());
+    Story _story = widget.player.printStory();
+
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
           title: Text(widget.player.getName()),
-          /*actions: <Widget>[ TODO add user publishing when min reached
+          actions: <Widget>[
+            FlatButton(
+              child: Text("Info"),
+              textColor: Colors.white,
+              onPressed: () => _openInfo(),
+            ),
             FlatButton(
               child: Text("Publish"),
               textColor: Colors.white,
-              onPressed: _canPublish? () => {_handlePublish} : null, //TODO
+              onPressed: _canPublish? () => _handlePublish(): null,
             )
-          ],*/
+          ],
         ),
         body: Center(
           child: Column(
@@ -104,11 +73,12 @@ class _ArticlePageState extends State<ArticlePage>{
                 builder: (context) => Center(
                     child: Container(
                       margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      child: createSwipeDetector(context, _card ), //SwipeDetector
+                      child: _createSwipeDetector(
+                        context, _createCard(_story, _headerHeight, _iconBarHeight), _story), //SwipeDetector
+                      //child: positioned, //SwipeDetector
                     )
                 ),
               ),
-              //createSwipeDetector(context, _card ), //SwipeDetector
             ],
           ),
         ),
@@ -117,22 +87,56 @@ class _ArticlePageState extends State<ArticlePage>{
 
   }
 
-  SwipeDetector createSwipeDetector(BuildContext context, Widget child){
-    return new SwipeDetector(
-        child: child,
-        onSwipeLeft: () => _accept(context),
-        onSwipeRight: _reject,
+  Card _createCard(Story story, double headerHeight, double barHeight) {
+    return Card(
+      //color: ColorDefinitions.tertiaryColor,
+      margin: EdgeInsets.all(25.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            height: headerHeight,
+            alignment: Alignment(headerHeight / 2, 0),
+            padding: EdgeInsets.all(20),
+            child: new Text(story.getHeadline(),
+                style: TextStyles.titleStyle,
+                textAlign: TextAlign.center
+
+            ),
+          ),
+          Container(
+            height: barHeight,
+            alignment: Alignment((barHeight / 2 + headerHeight), 0),
+            child: getIconBar(
+                ams.getIconFromCat(story.getCat()),
+                story.getCred().toString(),
+                story.getCost().toString()
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  void _accept(BuildContext context){
+
+
+  SwipeDetector _createSwipeDetector(BuildContext context, Widget child, Story story){
+    return new SwipeDetector(
+        child: child,
+        onSwipeLeft: () => _accept(context, story),
+        onSwipeRight: () => _reject(story),
+    );
+  }
+
+  void _accept(BuildContext context, Story story){
     print("accept article");
     //update story
-    int numArticles = widget.player.swipe(true, _story);
+    int numArticles = widget.player.swipe(true, story);
     if (numArticles != -1) {
       setState(() {
         _budget = widget.player.getMoney().toString();
-        _card = _createCard(widget.player.printStory());
+        //_card = _createCard(widget.player.printStory());
         if( numArticles ==  0) {
           //published, send feedback
           Scaffold.of(context).showSnackBar(
@@ -141,11 +145,11 @@ class _ArticlePageState extends State<ArticlePage>{
                   duration: Duration(seconds: 3)
               )
           );
-        }/* else if (numArticles == 5){ //TODO, min reached, enable publish btn
+        } else if (numArticles == 5){
           setState(() {
             _canPublish = true;
           });
-        }*/
+        }
       });
 
     } else {
@@ -159,12 +163,12 @@ class _ArticlePageState extends State<ArticlePage>{
     }
   }
 
-  void _reject(){
+  void _reject(Story story){
     print("reject article");
     //update story
-    widget.player.swipe(false, _story);
+    widget.player.swipe(false, story);
     setState(() {
-      _card = _createCard(widget.player.printStory());
+      //_card = _createCard(widget.player.printStory());
     });
   }
 
@@ -194,5 +198,9 @@ class _ArticlePageState extends State<ArticlePage>{
         getIconBarColumn(ArticleModelStyle.cost, cost),
       ],
     );
+  }
+
+  void _openInfo(){
+    //send player to info page
   }
 }
