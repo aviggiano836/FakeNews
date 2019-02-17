@@ -17,8 +17,8 @@ class Author
   {
     name = "Anon Nymous";
     cred = rnd.nextInt(100);
-    minPrice = rnd.nextInt(30);
-    maxPrice = minPrice + rnd.nextInt(70);
+    minPrice = rnd.nextInt(30) + 1;
+    maxPrice = minPrice + rnd.nextInt(70) + 1;
   }
 
   void hire() {
