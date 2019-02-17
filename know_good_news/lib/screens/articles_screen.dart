@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:know_good_news/Models/Player.dart';
 import 'package:know_good_news/Models/Story.dart';
 import 'package:know_good_news/styles/color_styles.dart';
+import 'package:know_good_news/styles/text_styles.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:know_good_news/styles/article_model_styles.dart';
 
@@ -24,31 +25,36 @@ Offset offset = Offset.zero;
 class _ArticlePageState extends State<ArticlePage>{
   Card _card;
   ArticleModelStyle ams = new ArticleModelStyle();
-
+  double _headerHeight;
+  double _iconBarHeight;
 
   Card _createCard(Story story){
-
-    if (ams.getIconFromCat(story.getCat()) == null){
-      print("Icon null");
-    }
-    print("Cred: " + story.getCred().toString());
-    print("Cost: " + story.getCost().toString());
-
     return Card(
-      color: ColorDefinitions.backgroundColor,
+      //color: ColorDefinitions.tertiaryColor,
       margin: EdgeInsets.all(25.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          new Text(story.getHeadline(),
-            style: TextStyle(
-                fontSize: 45,
-                fontFamily: "Helvetica",
-                fontWeight: FontWeight.bold
+          Container(
+            height: _headerHeight,
+            alignment: Alignment(_headerHeight/2, 0),
+            padding: EdgeInsets.all(20),
+            child: new Text(story.getHeadline(),
+              style: TextStyles.titleStyle,
+              textAlign: TextAlign.center
+
             ),
-            textAlign: TextAlign.center,
           ),
-          getIconBar(ams.getIconFromCat(story.getCat()), story.getCred().toString(), story.getCost().toString())
+          Container(
+            height: _iconBarHeight,
+            alignment: Alignment((_iconBarHeight/2 + _headerHeight), 0),
+            child: getIconBar(
+                ams.getIconFromCat(story.getCat()),
+                story.getCred().toString(),
+                story.getCost().toString()
+            ),
+          ),
         ],
       ),
     );
@@ -56,40 +62,9 @@ class _ArticlePageState extends State<ArticlePage>{
 
   @override
   Widget build(BuildContext context) {
-   /*return Stack(
-      children: <Widget>[
-        Positioned(
-          left: offset.dx,
-          top: offset.dy,
-          child: GestureDetector(
-            onPanUpdate: (details) {
-              setState(() {
-                offset = Offset(offset.dx + details.delta.dx, offset.dy);
-              });
-            },
-            child: Container(
-              color: ColorDefinitions.backgroundColor,
-              margin: EdgeInsets.all(25.0),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Text("Scientists Hack Plant DNA",
-                    style: TextStyle(
-                        fontSize: 45,
-                        fontFamily: "Helvetica",
-                        fontWeight: FontWeight.bold
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  getIconBar()
-                ],
-              ),
-            )
-          ),
-        ),
-      ],
-    );*/
+    _headerHeight = MediaQuery.of(context).size.height * .7;
+    _iconBarHeight = MediaQuery.of(context).size.height * .1;
+
     _card = _createCard(widget.player.printStory());
     return Scaffold(
         appBar: AppBar(
@@ -103,7 +78,9 @@ class _ArticlePageState extends State<ArticlePage>{
             ],
           ),
         ),
+      backgroundColor: ColorDefinitions.tertiaryColor,
     );
+
   }
 
   SwipeDetector createSwipeDetector(Widget child){
@@ -145,7 +122,7 @@ class _ArticlePageState extends State<ArticlePage>{
 
   Row getIconBar(Icon catIcon, String cred, String cost){
     return new Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         getIconBarColumn(catIcon, ""),
         getIconBarColumn(ArticleModelStyle.credibility, cred),

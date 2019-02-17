@@ -5,6 +5,8 @@ import 'package:know_good_news/screens/articles_screen.dart';
 
 import 'package:know_good_news/screens/new_game_screen.dart';
 import 'package:know_good_news/styles/button_themes.dart';
+import 'package:know_good_news/styles/color_styles.dart';
+import 'package:know_good_news/styles/text_styles.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -56,9 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // This method is rerun every time setState is called
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      
       body: Center(
         child: Column(
           // Column is also layout widget. It takes a list of children and
@@ -71,6 +71,20 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      "Know Good News",
+                      style: TextStyles.titleStyleColor,
+                    ),
+                    Text(
+                      "A News Editor Sim",
+                      style: TextStyles.subtitleStyle,
+                    )
+                  ],
+                ),
                 ButtonTheme.fromButtonThemeData(
                   data: buttonTheme.data,
                   child: Column(

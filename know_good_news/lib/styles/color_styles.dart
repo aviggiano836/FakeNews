@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ColorDefinitions{
-  static const primaryColorAsHex = 0xFF003B37;
+  static const primaryColorAsHex = 0xFF29339B;
   static const primaryColor = Color(primaryColorAsHex);
-  static const primaryAccentColor = Color(0xFF012622);
-  static const secondaryColor = Color(0xFFE98A15);
-  static const tertiaryColor = Color(0xFF5B2333);
-  static const backgroundColor = Color(0xFFE3D26F);
+  static const primaryAccentColor = Color(0xFF74A4BC);
+  static const secondaryColor = Color(0xFFDB2C15);
+  static const tertiaryColor = Color(0xFFB6D6CC);
+  static const backgroundColor = Color(0xFFF1FEC6);
 
   static const MaterialColor primarySwatch = const MaterialColor(
     primaryColorAsHex,
