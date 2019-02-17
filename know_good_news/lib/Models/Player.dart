@@ -56,4 +56,32 @@ class Player {
     }
   }
 
+  Category getType() {
+    return company.paperType;
+  }
+
+  Map<Category, int> getScores() {
+    return company.scores;
+  }
+
+  List<Author> getAuthors() {
+    return company.authors;
+  }
+
+  List<int> getProfits() {
+    return company.profits;
+  }
+
+  List<int> getPopularity() {
+    return company.popularity;
+  }
+
+  void hireAuthor(Author author) {
+    company.authors.add(author);
+  }
+
+  void fireAuthor(Author author) {
+    company.authors.remove(author);
+  }
+
 }

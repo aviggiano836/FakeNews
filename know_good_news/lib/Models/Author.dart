@@ -34,6 +34,10 @@ class Author
     return cred;
   }
 
+  Category getCategory() {
+    return cat1;
+  }
+
   int getPrice() {
     return minPrice + rnd.nextInt(maxPrice - minPrice);
   }

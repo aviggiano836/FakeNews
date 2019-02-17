@@ -48,4 +48,24 @@ class Story {
 
     this.headline = "A Story";
   }
+
+  String getHeadline() {
+    return this.headline;
+  }
+
+  int getCred() {
+    return this.cred;
+  }
+
+  int getCost() {
+    return this.cost;
+  }
+
+  Category getCat() {
+    return this.subject;
+  }
+
+  Author getAuthor() {
+    return this.author;
+  }
 }
