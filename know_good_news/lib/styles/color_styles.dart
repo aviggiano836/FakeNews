@@ -5,8 +5,7 @@ class ColorDefinitions{
   static const primaryColor = Color(primaryColorAsHex);
   static const primaryAccentColor = Color(0xFF74A4BC);
   static const secondaryColor = Color(0xFFDB2C15);
-  static const tertiaryColor = Color(0xFFB6D6CC);
-  static const backgroundColor = Color(0xFFF1FEC6);
+  static const tertiaryColor = Color(0xFFcdd8d5);
 
   static const MaterialColor primarySwatch = const MaterialColor(
     primaryColorAsHex,

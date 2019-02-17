@@ -27,6 +27,7 @@ class _ArticlePageState extends State<ArticlePage>{
   Card _card;
   Story _story;
   String _budget;
+  bool _canPublish = false;
   ArticleModelStyle ams = new ArticleModelStyle();
   double _headerHeight;
   double _iconBarHeight;
@@ -74,13 +75,13 @@ class _ArticlePageState extends State<ArticlePage>{
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.player.getName()),
-          actions: <Widget>[
+          /*actions: <Widget>[ TODO add user publishing when min reached
             FlatButton(
               child: Text("Publish"),
               textColor: Colors.white,
-              onPressed: () => {}, //TODO
+              onPressed: _canPublish? () => {_handlePublish} : null, //TODO
             )
-          ],
+          ],*/
         ),
         body: Center(
           child: Column(
@@ -96,11 +97,11 @@ class _ArticlePageState extends State<ArticlePage>{
                       widget.player.getType()
                     ),
                     widget.player.getCred().toString(),
-                    widget.player.getMoney().toString()
+                    _budget.toString()
                 ),
               ),
 
-              createSwipeDetector( _card ), //SwipeDetector
+              createSwipeDetector(context, _card ), //SwipeDetector
             ],
           ),
         ),
@@ -109,21 +110,43 @@ class _ArticlePageState extends State<ArticlePage>{
 
   }
 
-  SwipeDetector createSwipeDetector(Widget child){
+  SwipeDetector createSwipeDetector(BuildContext context, Widget child){
     return new SwipeDetector(
         child: child,
-        onSwipeLeft: _accept,
+        onSwipeLeft: () => _accept(context),
         onSwipeRight: _reject,
     );
   }
 
-  void _accept(){
+  void _accept(BuildContext context){
     print("accept article");
     //update story
-    if (widget.player.swipe(true, _story) != -1) {
+    int numArticles = widget.player.swipe(true, _story);
+    if (numArticles != -1) {
       setState(() {
         _budget = widget.player.getMoney().toString();
         _card = _createCard(widget.player.printStory());
+        if( numArticles ==  10) {
+          //published, send feedback
+          Scaffold.of(context).showSnackBar(
+              new SnackBar(
+                  content: Text("Paper Published! Congrats"),
+                  duration: Duration(seconds: 3)
+              )
+          );
+        }/* else if (numArticles == 5){ //TODO, min reached, enable publish btn
+          setState(() {
+            _canPublish = true;
+          });
+        }*/ else {
+          //something went wrong/can't afford
+          Scaffold.of(context).showSnackBar(
+              new SnackBar(
+                  content: Text("You couldn't afford that"),
+                  duration: Duration(seconds: 3)
+              )
+          );
+        }
       });
 
     } else {
@@ -138,6 +161,10 @@ class _ArticlePageState extends State<ArticlePage>{
     setState(() {
       _card = _createCard(widget.player.printStory());
     });
+  }
+
+  void _handlePublish(){
+    //TODO allow user to init publishing
   }
 
   Column getIconBarColumn(Icon icon, String text){

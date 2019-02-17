@@ -5,6 +5,7 @@ import 'package:know_good_news/screens/articles_screen.dart';
 
 import 'package:know_good_news/screens/new_game_screen.dart';
 import 'package:know_good_news/styles/button_themes.dart';
+import 'package:know_good_news/styles/color_styles.dart';
 import 'package:know_good_news/styles/text_styles.dart';
 
 
@@ -57,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // This method is rerun every time setState is called
     return Scaffold(
-      
+      backgroundColor: ColorDefinitions.tertiaryColor,
       body: Center(
         child: Column(
           // Column is also layout widget. It takes a list of children and

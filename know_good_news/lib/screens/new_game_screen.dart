@@ -5,6 +5,7 @@ import 'package:know_good_news/screens/articles_screen.dart';
 
 import 'package:know_good_news/styles/button_themes.dart';
 import 'package:know_good_news/Models/Player.dart';
+import 'package:know_good_news/styles/color_styles.dart';
 
 class NewGamePage extends StatefulWidget{
   NewGamePage({Key key, this.title}) : super(key: key);
@@ -49,6 +50,7 @@ class _NewGamePageState extends State<NewGamePage>{
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: ColorDefinitions.tertiaryColor,
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -70,10 +72,14 @@ class _NewGamePageState extends State<NewGamePage>{
                 builder: (context) => Center(
                     child: Container(
                       margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                        child: RaisedButton(
-                          onPressed: () => _beginGame(context, nameFieldCtrl),
-                          child: Text("Start"),
-                    )
+                        child: ButtonTheme.fromButtonThemeData(
+                            data: ButtonStyles.buttonTheme.data,
+                            child: RaisedButton(
+                                onPressed: () => _beginGame(context, nameFieldCtrl),
+                                child: Text("Start"),
+                        ),
+
+                        )
                 ),
               ),
             ),

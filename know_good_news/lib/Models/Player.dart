@@ -13,7 +13,7 @@ class Player {
 
   Player(this.name) {
     company = new Company(this);
-    budget = 50;
+    budget = 150;
   }
 
   int swipe(bool direction, Story story) {
