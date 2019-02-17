@@ -20,13 +20,22 @@ class _NewGamePageState extends State<NewGamePage>{
   //controller used to grab name
   final nameFieldCtrl = new TextEditingController();
 
-  void _beginGame(TextEditingController tec){
+  void _beginGame( BuildContext cont, TextEditingController tec ){
       //begin game for the first time,
-      Player player = new Player(tec.text);
-      Navigator.push(context, MaterialPageRoute(
-          builder: (context) =>
-          new ArticlePage(player: player, firstVisit: true,)
-      ));
+      if (tec.text.length == 0){
+        Scaffold.of(cont).showSnackBar(
+            new SnackBar(
+                content: Text("Invalid name, think of something clever"),
+                duration: Duration(seconds: 3)
+            )
+        );
+      } else {
+        Player player = new Player(tec.text);
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) =>
+            new ArticlePage(player: player, firstVisit: true,)
+        ));
+      }
   }
 
   //Override to dispose of defined controllers
@@ -57,11 +66,15 @@ class _NewGamePageState extends State<NewGamePage>{
                 controller: nameFieldCtrl,
               ),
             ),
-            ButtonTheme.fromButtonThemeData(
-              data: ButtonStyles.buttonTheme.data,
-              child: RaisedButton(
-                onPressed: () => _beginGame(nameFieldCtrl),
-                child: Text("Start"),
+              Builder(
+                builder: (context) => Center(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        child: RaisedButton(
+                          onPressed: () => _beginGame(context, nameFieldCtrl),
+                          child: Text("Start"),
+                    )
+                ),
               ),
             ),
           ],

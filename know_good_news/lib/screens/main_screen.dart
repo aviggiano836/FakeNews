@@ -5,7 +5,6 @@ import 'package:know_good_news/screens/articles_screen.dart';
 
 import 'package:know_good_news/screens/new_game_screen.dart';
 import 'package:know_good_news/styles/button_themes.dart';
-import 'package:know_good_news/styles/color_styles.dart';
 import 'package:know_good_news/styles/text_styles.dart';
 
 
