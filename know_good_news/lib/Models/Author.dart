@@ -30,6 +30,10 @@ class Author
   void hire() {
     minPrice ~/= 10;
     maxPrice ~/= 10;
+
+    if (maxPrice == minPrice) {
+      maxPrice += 1;
+    }
   }
 
   String getName() {
