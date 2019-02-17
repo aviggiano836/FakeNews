@@ -15,6 +15,10 @@ class Company {
   List<int> profits;
   List<int> popularity;
 
+  int lastProfit;
+  int lastAddReaders;
+  int lastCredInc;
+
   List<Story> issue;
 
   int cred;
@@ -84,11 +88,14 @@ class Company {
         }
       }
     }
+    lastAddReaders = toAdd.length - toRemove.length;
 
     //change credibility
     int tempCred = 0;
     issue.forEach((story) => tempCred += story.cred);
     tempCred ~/= issue.length;
+    lastCredInc = tempCred;
+
 
     cred = (cred + tempCred)~/2;
 
@@ -97,7 +104,8 @@ class Company {
     readers += toAdd;
 
     //add profits depending on readership
-    player.addCash((readers.length * .1 * cred).toInt());
+    lastProfit = (readers.length * .1 * cred).toInt();
+    player.addCash(lastProfit);
 
     //set turn value of lists to profits and popularity
     if(profits == null){

@@ -138,7 +138,36 @@ class _ArticlePageState extends State<ArticlePage> with TickerProviderStateMixin
         _card = _createCard(widget.player.printStory());
       });
       if( numArticles ==  0) { // paper has been cleared = published
-        msg = "Paper Published! Congrats";
+        setState(() { //update with new budget and get next article
+          _canPublish = false;
+        });
+        //msg = "Paper Published! Congrats";
+        showDialog<void>(
+          context: context,
+          barrierDismissible: true, // user must tap button!
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Paper Published!'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text('New Readers: ' + widget.player.company.lastAddReaders.toString()),
+                    Text('Profit: ' + widget.player.company.lastProfit.toString()),
+                    Text('Credibility Inc: ' + widget.player.company.lastCredInc.toString()),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Cool'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
 
       } else if (numArticles == 5){ // min num reached, enable publish button
         setState(() {
@@ -154,12 +183,14 @@ class _ArticlePageState extends State<ArticlePage> with TickerProviderStateMixin
       msg = "You couldn't afford that";
     }
 
-    Scaffold.of(context).showSnackBar(
-        new SnackBar(
-            content: Text(msg),
-            duration: Duration(seconds: 3)
-        )
-    );
+    if(msg.length != 0) {
+      Scaffold.of(context).showSnackBar(
+          new SnackBar(
+              content: Text(msg),
+              duration: Duration(milliseconds: 500)
+          )
+      );
+    }
   }
 
   /*
