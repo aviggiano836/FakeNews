@@ -22,8 +22,7 @@ class Player {
         return -1; //print you don't have enough money for this story
       } else {
         budget -= story.cost;
-        company.swipe(true, story);
-        return 1;
+        return company.swipe(true, story);
       }
     } else {
       return -1; //progress to the next story
