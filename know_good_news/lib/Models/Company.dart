@@ -24,12 +24,16 @@ class Company {
   Random rnd = new Random();
 
   Company(this.player) {
+    this.scores = {Category.food: 0, Category.tech: 0, Category.health: 0, Category.politics: 0, Category.sports: 0, Category.science: 0};
+
+    /*
     this.scores.putIfAbsent(Category.food, () => 0);
     this.scores.putIfAbsent(Category.tech, () => 0);
     this.scores.putIfAbsent(Category.sports, () => 0);
     this.scores.putIfAbsent(Category.science, () => 0);
     this.scores.putIfAbsent(Category.politics, () => 0);
     this.scores.putIfAbsent(Category.health, () => 0);
+    */
 
     this.paperType = Category.values[rnd.nextInt(5)];
 
