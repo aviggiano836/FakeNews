@@ -40,12 +40,14 @@ class Company {
     this.turn  = 0;
     this.cred = 50;
 
+    this.authors = new List<Author>();
     for (int i; i < 5; i ++) {
       this.authors.add(new Author.automatic());
     }
 
     this.authors.forEach((author) => author.hire());
 
+    this.readers = new List<Reader>();
     for (int i; i < 30; i ++) {
       this.readers.add(new Reader());
     }
@@ -66,8 +68,8 @@ class Company {
   }
 
   void submitStory() {
-    List<Reader> toRemove;
-    List<Reader> toAdd;
+    List<Reader> toRemove = new List<Reader>();
+    List<Reader> toAdd = new List<Reader>();
 
     for (int i = 0; i < readers.length; i++){
       if (!reactToStory(readers[i], issue)) {
@@ -80,7 +82,7 @@ class Company {
     }
 
     //change credibility
-    int tempCred;
+    int tempCred = 0;
     issue.forEach((story) => tempCred += story.cred);
     tempCred ~/= issue.length;
 
@@ -102,7 +104,7 @@ class Company {
     //givenStories.removeRange(0, givenStories.length - 1);
     issue.removeRange(0, issue.length - 1);
 
-    List<Story> tempStories;
+    List<Story> tempStories = new List<Story>();
     authors.forEach((author) => tempStories.add(new Story(author, this.paperType)));
     player.newStories(tempStories);
     //authors.forEach((author) => givenStories.add(new Story(author, this.paperType)));
