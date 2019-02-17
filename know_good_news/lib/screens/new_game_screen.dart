@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:know_good_news/screens/articles_screen.dart';
 
 import 'package:know_good_news/styles/button_themes.dart';
+import 'package:know_good_news/Models/Player.dart';
 
 class NewGamePage extends StatefulWidget{
   NewGamePage({Key key, this.title}) : super(key: key);
@@ -21,6 +22,7 @@ class _NewGamePageState extends State<NewGamePage>{
 
   void _beginGame(TextEditingController tec){
       //begin game for the first time,
+      new Player();
       Navigator.push(context, MaterialPageRoute(
           builder: (context) =>
           new ArticlePage(title: tec.text, firstVisit: true,)
