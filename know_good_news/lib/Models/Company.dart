@@ -54,7 +54,7 @@ class Company {
       this.readers.add(new Reader());
     }
 
-    List<Story> tempStories;
+    List<Story> tempStories = new List<Story>();
     authors.forEach((author) => tempStories.add(new Story(author, this.paperType)));
   }
 
