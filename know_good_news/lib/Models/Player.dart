@@ -37,6 +37,10 @@ class Player {
     budget += money;
   }
 
+  String getName() {
+    return this.name;
+  }
+
   Story printStory() {
     if (stories.length == 0) {
       return new Story.automatic();
